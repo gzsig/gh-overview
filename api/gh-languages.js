@@ -33,26 +33,29 @@ const getRepoLangs = (repo) => {
 };
 
 module.exports = async (req, res) => {
+  const start = new Date();
   const repos = [];
   const languages = {};
   const allMyRepos = await getAllRepos();
   for (let i = 0; i < allMyRepos.data.length; i++) {
     repos.push(allMyRepos.data[i].full_name);
   }
-  console.log(repos);
   for (let i = 0; i < repos.length; i++) {
     const langs = await getRepoLangs(repos[i]);
     if (Object.keys(langs.data).length) {
       langsArray = Object.keys(langs.data);
       for (let j = 0; j < langsArray.length; j++) {
-        if(languages[langsArray[j]] === undefined){
+        if (languages[langsArray[j]] === undefined) {
           languages[langsArray[j]] = parseInt(langs.data[langsArray[j]]);
         } else {
-          languages[langsArray[j]] = languages[langsArray[j]] + parseInt(langs.data[langsArray[j]]);
+          languages[langsArray[j]] =
+            languages[langsArray[j]] + parseInt(langs.data[langsArray[j]]);
         }
       }
     }
   }
   console.log(languages);
-  res.status(200).json(languages)
+  const end = new Date();
+  console.log(`seconds elapsed = ${Math.floor((end - start) / 1000)}`);
+  res.status(200).json(languages);
 };

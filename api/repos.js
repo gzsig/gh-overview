@@ -25,11 +25,11 @@ getAllRepos = async (username, allRepos, page) => {
   const repos = await getRepos(username, page);
   for (let i = 0; i < repos.data.length; i++) {
     allRepos.push(repos.data[i].full_name);
-    console.log("Adding: ", repos.data[i].full_name);
+    // console.log("Adding: ", repos.data[i].full_name);
   }
   if (repos.data.length) {
     page = page + 1;
-    console.log("Getting page: ", page);
+    // console.log("Getting page: ", page);
     await getAllRepos(username, allRepos, page);
   }
   return allRepos;
@@ -40,8 +40,8 @@ module.exports = async (req, res) => {
   const allRepos = [];
   const { user } = req.query;
   const allMyRepos = await getAllRepos(user, allRepos, 1);
-  console.log(user);
-  console.log(allMyRepos);
+  // console.log(user);
+  // console.log(allMyRepos);
 
   const end = new Date();
   console.log(`seconds elapsed = ${Math.floor((end - start) / 1000)}`);

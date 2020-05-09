@@ -1,8 +1,8 @@
 {
-  "name": "top-languages",
+  "name": "gh-overview",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/gzsig/top-languages.git",
+  "repository": "https://github.com/gzsig/gh-overview.git",
   "author": "Gabriel Zsigmond <gaazsig@gmail.com>",
   "license": "MIT",
   "dependencies": {

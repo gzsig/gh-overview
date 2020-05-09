@@ -34,33 +34,23 @@ const handleClick = () => {
   getRepos(user);
 };
 
-const getRepos = (username) => {
+const getRepos = async (username) => {
   const root = document.getElementById("root");
-  axios
-    .get(`/api/repos?user=${username}`)
-    .then((repos) => {
-      for (let i = 0; i < repos.data.allRepos.length; i++) {
-        axios
-          .get(`/api/repo-info?repo=${repos.data.allRepos[i]}`)
-          .then((lang) => {
-            console.log(lang);
-            let ul = newNode("ul");
-            let currentRepo = newNode("li", repos.data.allRepos[i]);
-            langArray = Object.keys(lang.data.allLanguages);
-            langArray.forEach((element) => {
-              ul.innerHTML += `<li>${element}</li>`;
-            });
-            let item = newNode("div");
-            item.appendChild(currentRepo);
-            item.appendChild(ul);
-            root.appendChild(item);
-          })
-          .catch((err) => {
-            console.warn(`/api/repos?repo=${repos.data.allRepos[i]}`, err);
-          });
-      }
-    })
-    .catch((err) => {
-      console.warn(`/api/repos?user=${username}`, err);
+  const repos = await axios.get(`/api/repos?user=${username}`);
+  for (let i = 0; i < repos.data.allRepos.length; i++) {
+    const lang = await axios.get(
+      `/api/repo-info?repo=${repos.data.allRepos[i]}`
+    );
+    console.log(lang);
+    let ul = newNode("ul");
+    let currentRepo = newNode("li", repos.data.allRepos[i]);
+    langArray = Object.keys(lang.data.allLanguages);
+    langArray.forEach((element) => {
+      ul.innerHTML += `<li>${element}</li>`;
     });
+    let item = newNode("div");
+    item.appendChild(currentRepo);
+    item.appendChild(ul);
+    root.appendChild(item);
+  }
 };

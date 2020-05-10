@@ -48,6 +48,6 @@ If you'd like to request a new function, feel free to do so by opening an issue 
 ## To-do
 > update the way info is displayed when received from server
 
-## [License]()
+## [License](https://github.com/gzsig/gh-overview/blob/master/LICENSE.md)
 
 MIT © [Gabriel Zsigmond](https://github.com/gzsig)

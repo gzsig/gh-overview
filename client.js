@@ -31,6 +31,10 @@ const newNode = (
 const handleClick = () => {
   user = document.getElementById("username").value;
   console.log(user);
+  if (!user) {
+    error();
+    return;
+  }
   getRepos(user);
 };
 
@@ -53,4 +57,14 @@ const getRepos = async (username) => {
     item.appendChild(ul);
     root.appendChild(item);
   }
+};
+
+const error = () => {
+  let input = document.getElementById("username");
+  input.classList.add("error");
+};
+
+const reset = () => {
+  let input = document.getElementById("username");
+  input.classList.contains("error") && input.classList.remove("error");
 };

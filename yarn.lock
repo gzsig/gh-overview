@@ -2,6 +2,18 @@
 # yarn lockfile v1
 
 
+"@now/node@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@now/node/-/node-1.6.0.tgz#e662de9836d0db48dbb27a2fdb7bf26bbec4e1af"
+  integrity sha512-evU4QrZ3RYRNIQKJt8wrwoCHgnnZpRbTHNdmgmLs9eriOFejf3jIIEPxzkq0vFZ2wC2SP3W02WMl6SK6LZJuKQ==
+  dependencies:
+    "@types/node" "*"
+
+"@types/node@*":
+  version "13.13.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.5.tgz#96ec3b0afafd64a4ccea9107b75bf8489f0e5765"
+  integrity sha512-3ySmiBYJPqgjiHA7oEaIo2Rzz0HrOZ7yrNO5HWyaE5q0lQ3BppDZ3N53Miz8bw2I7gh1/zir2MGVZBvpb1zq9g==
+
 axios@^0.19.2:
   version "0.19.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"

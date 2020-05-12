@@ -1,4 +1,5 @@
 const go = async (username) => {
+  document.getElementById("repos").innerHTML = "";
   let current;
   const repos = await getRepos(username);
   for (let i = 0; i < repos.length; i++) {
@@ -17,6 +18,10 @@ const getRepoInfo = async (repo, username) => {
   const { fullname } = repo;
   const { name } = repo;
   const { link } = repo;
+  let { description } = repo;
+  if (description === null) {
+    description = "No description";
+  }
   const lang = await axios.get(`/api/repo-info?repo=${fullname}`);
   const contributions = await axios.get(
     `/api/repo-contribution?repo=${fullname}&user=${username}`
@@ -29,5 +34,6 @@ const getRepoInfo = async (repo, username) => {
     languages,
     contributions: contributions.data.allContributions,
     link,
+    description,
   };
 };

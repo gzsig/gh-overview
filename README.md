@@ -3,8 +3,8 @@
 A webapp using Github API to display helpful information about a specific user or organization by analyzing all of its public repositories.
 
 ## Demo
-Here is a working live [demo](https://gh-overview.now.sh/)
-
+- Here is a working live [demo](https://gh-overview.now.sh/)
+- Figma [Layout](https://www.figma.com/file/xSsYnkcXb71gwZsYX0KQE8/gh-overview?node-id=2%3A59)
 
 ## Site
 

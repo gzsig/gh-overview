@@ -3,12 +3,14 @@ const { getRepos } = require("../githubAPI/calls");
 getAllRepos = async (username, allRepos, page) => {
   const repos = await getRepos(username, page);
   for (let i = 0; i < repos.data.length; i++) {
-    allRepos.push(repos.data[i].full_name);
-    // console.log("Adding: ", repos.data[i].full_name);
+    allRepos.push({
+      name: repos.data[i].name,
+      fullname: repos.data[i].full_name,
+      link: repos.data[i].html_url,
+    });
   }
   if (repos.data.length) {
     page = page + 1;
-    // console.log("Getting page: ", page);
     await getAllRepos(username, allRepos, page);
   }
   return allRepos;

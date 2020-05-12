@@ -1,25 +1,4 @@
-const axios = require("axios");
-require("dotenv").config();
-const { GH_TOKEN } = process.env;
-
-const instance = axios.create({
-  baseURL: "https://api.github.com",
-  // timeout: 1000,
-  headers: { Authorization: `token ${GH_TOKEN}` },
-});
-
-const getRepos = (username, page) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const axiosRes = instance.get(
-        `users/${username}/repos?type=all&sort=full_name&per_page=100&page=${page}`
-      );
-      resolve(axiosRes);
-    } catch (error) {
-      reject(error);
-    }
-  });
-};
+const { getRepos } = require("../githubAPI/calls");
 
 getAllRepos = async (username, allRepos, page) => {
   const repos = await getRepos(username, page);

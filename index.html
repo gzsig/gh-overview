@@ -4,9 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="/client/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/client.js"></script>
+    <script src="/client/helpers.js"></script>
+    <script src="/client/buildHTML.js"></script>
+    <script src="/client/client.js"></script>
   </head>
   <body>
     <nav class="nav">
@@ -20,12 +22,12 @@
           type="text"
           id="username"
           autocomplete="off"
-          placeholder="username"
+          placeholder="github username"
           onfocus="reset()"
         />
         <button id="search-gh" onClick="handleClick()">Go</button>
       </div>
-      <div id="root"></div>
+      <div id="repos"></div>
     </div>
     <footer class="footer"></footer>
   </body>

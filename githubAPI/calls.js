@@ -23,7 +23,7 @@ const getRepos = (username, page) => {
   return new Promise(async (resolve, reject) => {
     try {
       const axiosRes = instance.get(
-        `users/${username}/repos?type=all&sort=full_name&per_page=100&page=${page}`
+        `/users/${username}/repos?type=all&sort=full_name&per_page=100&page=${page}`
       );
       resolve(axiosRes);
     } catch (error) {

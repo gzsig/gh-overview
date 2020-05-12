@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
   const { repo, user } = req.query;
   const contributions = await getContributions(repo, user);
   for (let i = 0; i < contributions.data.length; i++) {
-    if (contributions.data[i].login === user) {
+    if (contributions.data[i].login.toLowerCase() === user.toLowerCase()) {
       numberOfContributions = contributions.data[i].contributions;
     }
   }

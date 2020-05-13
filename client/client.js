@@ -1,10 +1,27 @@
 const go = async (username) => {
+  document.getElementById("portfolio").innerHTML = "";
   document.getElementById("repos").innerHTML = "";
-  let current;
-  const repos = await getRepos(username);
-  for (let i = 0; i < repos.length; i++) {
-    current = await getRepoInfo(repos[i], username);
-    buildCard(current);
+  let currentRepo, currentUser;
+
+  currentUser = await getUser(username);
+  if (currentUser !== null) {
+    buildPortfolio(currentUser);
+    const repos = await getRepos(username);
+    for (let i = 0; i < 2; i++) { //repos.length
+      currentRepo = await getRepoInfo(repos[i], username);
+      buildCard(currentRepo);
+    }
+  } else {
+    error();
+  }
+};
+
+const getUser = async (username) => {
+  try {
+    const info = await axios.get(`/api/user-info?user=${username}`);
+    return info.data;
+  } catch (error) {
+    return null;
   }
 };
 

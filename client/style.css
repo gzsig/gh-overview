@@ -118,8 +118,9 @@ body {
 
 .card-description {
   max-width: 45%;
-  font-size: 13px;
-  margin-bottom: 24px;
+  font-size: 16px;
+  max-height: 130px;
+  overflow: scroll;
 }
 
 .card-contributions {
@@ -147,7 +148,8 @@ body {
 
 .chart {
   width: 50%;
-  height: 50%;
+  height: 170px;
+  margin-bottom: -22px;
 }
 
 .container {
@@ -242,8 +244,13 @@ body {
   .card-body {
     flex-direction: column;
   }
-  .chart,
+  .chart {
+    width: 90%;
+    height: auto;
+    margin: 0;
+  }
   .card-description {
+    margin-bottom: 24px;
     width: 90%;
   }
 }
@@ -254,8 +261,13 @@ body {
     width: 80%;
     height: auto;
   }
-  .chart,
+  .chart {
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
   .card-description {
+    margin-bottom: 24px;
     width: 100%;
   }
 }
@@ -271,7 +283,12 @@ body {
     width: 100%;
     height: auto;
   }
-  .chart,
+  .chart {
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
+  margin-bottom: 24px;
   .card-description {
     width: 100%;
   }

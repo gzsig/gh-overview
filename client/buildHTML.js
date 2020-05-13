@@ -239,7 +239,7 @@ const createChart = (chartCanvas, languages) => {
   });
   let total = data.reduce((a, b) => a + b, 0);
   for (let i = 0; i < data.length; i++) {
-    data[i] = (data[i] / total) * 10;
+    data[i] = (data[i] / total) * 100;
     data[i] = Math.round((data[i] + Number.EPSILON) * 100) / 100;
   }
   let myChart = new Chart(chartCanvas, {
@@ -250,6 +250,7 @@ const createChart = (chartCanvas, languages) => {
         {
           label: "Linguagens",
           data,
+
           backgroundColor: barColors,
           borderColor: "#c4c4c4",
           borderWidth: 1,
@@ -257,6 +258,8 @@ const createChart = (chartCanvas, languages) => {
       ],
     },
     options: {
+      responsive: true,
+      maintainAspectRatio: false,
       scales: {
         yAxes: [
           {

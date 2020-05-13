@@ -8,7 +8,7 @@ const instance = axios.create({
   headers: { Authorization: `token ${GH_TOKEN}` },
 });
 
-const getContributions = (repo, username) => {
+const getContributions = (repo) => {
   return new Promise(async (resolve, reject) => {
     try {
       const axiosRes = instance.get(`/repos/${repo}/contributors`);

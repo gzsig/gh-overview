@@ -239,7 +239,7 @@ const createChart = (chartCanvas, languages) => {
   });
   let total = data.reduce((a, b) => a + b, 0);
   for (let i = 0; i < data.length; i++) {
-    data[i] = (data[i] / total) * 100;
+    data[i] = (data[i] / total) * 10;
     data[i] = Math.round((data[i] + Number.EPSILON) * 100) / 100;
   }
   let myChart = new Chart(chartCanvas, {
@@ -309,4 +309,99 @@ const buildCard = (repoInfo) => {
   card.appendChild(cardContent);
   card.appendChild(contributions);
   repos.appendChild(card);
+};
+
+const buildPortfolio = (user) => {
+  console.log("here", user);
+  let portfolio = document.getElementById("portfolio");
+  let portfolioWrapper = newNode("div", "", "", ["portfolio-container"], []);
+  let chartWrapper = newNode("div", "", "", ["chart"]);
+  let userInfo = newNode("div", "", "", ["user-info"], []);
+  let userDetails = newNode("div", "", "", ["user-info"], []);
+  let avatar = newNode(
+    "div",
+    "",
+    "",
+    ["avatar"],
+    [{ style: `background-image: url(${user.avatar_url})` }]
+  );
+  let name = newNode("div", user.name, "", ["name"], []);
+  let bio = newNode("div", user.bio, "", ["bio"], []);
+
+  let blogUrl = newNode(
+    "a",
+    user.blog,
+    "",
+    ["line-content"],
+    [{ href: user.blog }, { target: "_blank" }, { "data-icon": "site" }]
+  );
+  let email = newNode(
+    "a",
+    user.email,
+    "",
+    ["line-content"],
+    [{ href: `mailto:${user.email}` }, { "data-icon": "mail" }]
+  );
+  let followers = newNode(
+    "div",
+    `${user.followers} followers`,
+    "",
+    ["line-content"],
+    [{ "data-icon": "followers" }]
+  );
+  let ghUrl = newNode(
+    "a",
+    user.login,
+    "",
+    ["line-content"],
+    [{ href: user.html_url }, { target: "_blank" }, { "data-icon": "gh" }]
+  );
+  let location = newNode(
+    "div",
+    user.location,
+    "",
+    ["line-content"],
+    [{ "data-icon": "location" }]
+  );
+  let publicRepos = newNode(
+    "div",
+    `${user.public_repos} public repos`,
+    "",
+    ["line-content"],
+    [{ "data-icon": "repo" }]
+  );
+
+  let linesArray = [blogUrl, email, followers, ghUrl, location, publicRepos];
+
+  linesArray.forEach((element) => {
+    console.log(element.innerHTML);
+
+    if (element.innerHTML !== "") {
+      let line = newNode("div", "", "", ["detail-line"], []);
+      let icon = newNode(
+        "div",
+        "",
+        "",
+        ["icon"],
+        [
+          {
+            style: `background-image: url(../img/${element.getAttribute(
+              "data-icon"
+            )}.svg)`,
+          },
+        ]
+      );
+      line.appendChild(icon);
+      line.appendChild(element);
+      userDetails.appendChild(line);
+    }
+  });
+
+  userInfo.appendChild(avatar);
+  userInfo.appendChild(name);
+  userInfo.appendChild(bio);
+  userInfo.appendChild(userDetails);
+  portfolioWrapper.appendChild(userInfo);
+  portfolioWrapper.appendChild(chartWrapper);
+  portfolio.appendChild(portfolioWrapper);
 };

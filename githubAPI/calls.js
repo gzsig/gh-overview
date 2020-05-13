@@ -43,8 +43,20 @@ const getRepoLangs = (repo) => {
   });
 };
 
+const getUserInfo = (username) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const axiosRes = instance.get(`/users/${username}`);
+      resolve(axiosRes);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   getContributions,
   getRepos,
   getRepoLangs,
+  getUserInfo,
 };

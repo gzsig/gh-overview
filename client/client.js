@@ -7,7 +7,7 @@ const go = async (username) => {
   if (currentUser !== null) {
     buildPortfolio(currentUser);
     const repos = await getRepos(username);
-    for (let i = 0; i < 2; i++) { //repos.length
+    for (let i = 0; i < repos.length; i++) {
       currentRepo = await getRepoInfo(repos[i], username);
       buildCard(currentRepo);
     }

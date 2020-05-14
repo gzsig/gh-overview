@@ -9,11 +9,10 @@ const go = async (username) => {
   if (currentUser !== null) {
     buildPortfolio(currentUser);
     const repos = await getRepos(username);
-    for (let i = 0; i < 10; i++) {
-      //repos.length
+    for (let i = 0; i < repos.length; i++) {
       currentRepo = await getRepoInfo(repos[i], username);
       buildCard(currentRepo);
-      if (i % 4 === 0 || i === 9) {
+      if (i % 6 === 0 || i === repos.length - 1) {
         mainChart = languagesOverview(GLOBAL_LANGUAGES, mainChart);
       }
     }

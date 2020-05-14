@@ -250,21 +250,37 @@ const createChart = (chartCanvas, languages) => {
         {
           label: "Linguagens",
           data,
-
+          barPercentage: 0.5,
+          barThickness: 6,
+          maxBarThickness: 8,
+          minBarLength: 2,
           backgroundColor: barColors,
-          borderColor: "#c4c4c4",
+          borderColor: barColors,
           borderWidth: 1,
         },
       ],
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
+      legend: {
+        display: false,
+        labels: {
+          fontColor: "rgb(255, 99, 132)",
+          fontSize: 8,
+        },
+      },
       scales: {
         yAxes: [
           {
             ticks: {
               beginAtZero: true,
+            },
+          },
+        ],
+        xAxes: [
+          {
+            ticks: {
+              display: false, //this will remove only the label
+              // fontSize: 8,
             },
           },
         ],

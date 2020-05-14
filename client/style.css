@@ -100,12 +100,12 @@ body {
 }
 
 .card {
-  width: 36%;
+  width: 30%;
   height: 174px;
   background: #ffffff;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
-  padding: 48px;
+  padding: 24px;
   margin: 12px 6px;
   position: relative;
 }
@@ -113,13 +113,12 @@ body {
 .card-body {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .card-description {
   max-width: 45%;
-  font-size: 16px;
-  max-height: 130px;
+  font-size: 14px;
+  max-height: 112px;
   overflow: scroll;
 }
 
@@ -147,8 +146,8 @@ body {
 }
 
 .chart {
-  width: 50%;
-  height: 170px;
+  width: 60%;
+  height: auto;
   margin-bottom: -22px;
 }
 
@@ -213,7 +212,7 @@ body {
 .portfolio-container {
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-evenly;
 }
 
@@ -240,6 +239,7 @@ body {
   }
   .card {
     height: auto;
+    padding: 48px 24px;
   }
   .card-body {
     flex-direction: column;
@@ -250,12 +250,15 @@ body {
     margin: 0;
   }
   .card-description {
+    height: 100px;
+    text-align: justify;
+    max-width: 100%;
     margin-bottom: 24px;
     width: 90%;
   }
 }
 
-@media (max-width: 832px) {
+/* @media (max-width: 832px) {
   .card {
     padding: 48px 24px;
     width: 80%;
@@ -267,10 +270,11 @@ body {
     margin: 0;
   }
   .card-description {
+    max-width: 100%;
     margin-bottom: 24px;
     width: 100%;
   }
-}
+} */
 
 @media (max-width: 640px) {
   .container,
@@ -290,6 +294,8 @@ body {
   }
   margin-bottom: 24px;
   .card-description {
+    text-align: justify;
+    max-width: 100%;
     width: 100%;
   }
 }

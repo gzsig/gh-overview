@@ -40,13 +40,15 @@ If you'd like to request a new function, feel free to do so by opening an issue 
 
 ## Built with 
 
+- [Axios](https://github.com/axios/axios)
+- [ChartJs](https://www.chartjs.org/)
 - [Github API v3](https://developer.github.com/v3)
 - [Vercel](https://vercel.com/)
-- [Axios](https://github.com/axios/axios)
+
 
 
 ## To-do
-> update the way info is displayed when received from server
+> retrieve 50 most recent commits from each repo to create main chart
 
 ## [License](https://github.com/gzsig/gh-overview/blob/master/LICENSE.md)
 

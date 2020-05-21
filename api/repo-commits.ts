@@ -4,12 +4,20 @@ import { getUserRepoCommit, getUserRepoCommits } from "../githubAPI/calls";
 
 const callGithubForEachCommit = async (commits, repo, commitIds, i) => {
   if (commitIds.length) {
-    let commitInfo = await getUserRepoCommit(repo, commitIds[i]);
-    commits.push(commitInfo.data);
-  }
-  if (i < commitIds.length - 1) {
-    i = i + 1;
-    await callGithubForEachCommit(commits, repo, commitIds, i);
+    try {
+      let commitInfo = await getUserRepoCommit(repo, commitIds[i]);
+      commits.push(commitInfo.data);
+      if (i < commitIds.length - 1) {
+        i = i + 1;
+        await callGithubForEachCommit(commits, repo, commitIds, i);
+      }
+    } catch (error) {
+      console.log("error ----------->", error);
+      if (i < commitIds.length - 1) {
+        i = i + 1;
+        await callGithubForEachCommit(commits, repo, commitIds, i);
+      }
+    }
   }
   return commits;
 };
@@ -83,37 +91,42 @@ export default async (req: NowRequest, res: NowResponse) => {
   let languageUpdates = {};
   const { user, repo } = req.query;
   let shas = [];
-  const commits = await getUserRepoCommits(repo, user);
-  for (let i = 0; i < commits.data.length; i++) {
-    shas.push(commits.data[i].sha);
-  }
-  console.log(shas.length);
-
-  const commitsInfo = await callGithubForEachCommit([], repo, shas, 0);
-
-  commitsInfo.forEach((commit) => {
-    for (let i = 0; i < commit.files.length; i++) {
-      let file = commit.files[i];
-      console.log(file.filename);
-      console.log(file.additions);
-      console.log(file.deletions);
-      let extention = file.filename.match(/\w*$/);
-      console.log(extention[0]);
-      let key = extention[0];
-      if (languageExtentions.includes(key)) {
-        if (languageUpdates[key] === undefined) {
-          languageUpdates[key] = parseInt(file.additions);
-        } else {
-          languageUpdates[key] += parseInt(file.additions);
-        }
-      }
-
-      console.log("\n");
+  try {
+    const commits = await getUserRepoCommits(repo, user);
+    for (let i = 0; i < commits.data.length; i++) {
+      shas.push(commits.data[i].sha);
     }
-  });
-  const end = new Date();
-  console.log(
-    `seconds elapsed = ${Math.floor((Number(end) - Number(start)) / 1000)}`
-  );
-  res.send(languageUpdates);
+
+    const commitsInfo = await callGithubForEachCommit([], repo, shas, 0);
+
+    commitsInfo.forEach((commit) => {
+      for (let i = 0; i < commit.files.length; i++) {
+        console.log(repo);
+
+        let file = commit.files[i];
+        console.log(file.filename);
+        console.log(file.additions);
+        console.log(file.deletions);
+        let extention = file.filename.match(/\w*$/);
+        console.log(extention[0]);
+        let key = extention[0];
+        if (languageExtentions.includes(key)) {
+          if (languageUpdates[key] === undefined) {
+            languageUpdates[key] = parseInt(file.additions);
+          } else {
+            languageUpdates[key] += parseInt(file.additions);
+          }
+        }
+
+        console.log("\n");
+      }
+    });
+    const end = new Date();
+    console.log(
+      `seconds elapsed = ${Math.floor((Number(end) - Number(start)) / 1000)}`
+    );
+    res.status(200).json(languageUpdates);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 };

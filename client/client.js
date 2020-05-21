@@ -10,9 +10,9 @@ const go = async (username) => {
     buildPortfolio(currentUser);
     const repos = await getRepos(username);
     for (let i = 0; i < repos.length; i++) {
-      currentRepo = await getRepoInfo(repos[i], username);
+      currentRepo = await getRepoInfo(repos[i], username, i);
       buildCard(currentRepo);
-      if (i === 1 || i % 6 === 0 || i === repos.length - 1) {
+      if (i === 1 || (i % 2 === 0 && i <= 10)) {
         mainChart = languagesOverview(GLOBAL_LANGUAGES, mainChart);
       }
     }
@@ -35,7 +35,7 @@ const getRepos = async (username) => {
   return repos.data.allRepos;
 };
 
-const getRepoInfo = async (repo, username) => {
+const getRepoInfo = async (repo, username, index) => {
   let languages = [];
   const { fullname } = repo;
   const { name } = repo;
@@ -50,20 +50,22 @@ const getRepoInfo = async (repo, username) => {
   );
 
   try {
-    const commitInfo = await axios.get(
-      `/api/repo-commits?repo=${fullname}&user=${username}`
-    );
+    if (index < 10) {
+      const commitInfo = await axios.get(
+        `/api/repo-commits?repo=${fullname}&user=${username}`
+      );
 
+      for (let key in commitInfo.data) {
+        if (GLOBAL_LANGUAGES[key] === undefined) {
+          GLOBAL_LANGUAGES[key] = parseInt(commitInfo.data[key]);
+        } else {
+          GLOBAL_LANGUAGES[key] =
+            GLOBAL_LANGUAGES[key] + parseInt(commitInfo.data[key]);
+        }
+      }
+    }
     for (let key in lang.data.allLanguages) {
       languages.push({ name: key, size: lang.data.allLanguages[key] });
-    }
-    for (let key in commitInfo.data) {
-      if (GLOBAL_LANGUAGES[key] === undefined) {
-        GLOBAL_LANGUAGES[key] = parseInt(commitInfo.data[key]);
-      } else {
-        GLOBAL_LANGUAGES[key] =
-          GLOBAL_LANGUAGES[key] + parseInt(commitInfo.data[key]);
-      }
     }
     return {
       name,

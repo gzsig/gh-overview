@@ -213,6 +213,7 @@ const GLOBAL_EXTENTIONS = {
   c: "C",
   "c++": "C++",
   cpp: "C++",
+  css: "CSS",
   chpl: "Chapel",
   coffee: "CoffeeScript",
   "coffee-script": "CoffeeScript",
@@ -337,7 +338,15 @@ const languagesOverview = (langObj, oldChart) => {
       ],
       labels,
     },
-    options: {},
+    options: {
+      title: {
+        display: true,
+        text: " Recent commints from the last 10 repos I've contritubited to",
+        fontSize: 16,
+        fontColor: "#2A5298",
+        fontStyle: 400,
+      },
+    },
   });
   return myChart;
 };

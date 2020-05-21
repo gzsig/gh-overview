@@ -48,13 +48,20 @@ const getRepoInfo = async (repo, username) => {
   const contributions = await axios.get(
     `/api/repo-contribution?repo=${fullname}&user=${username}`
   );
+
+  const commitInfo = await axios.get(
+    `/api/repo-commits?repo=${fullname}&user=${username}`
+  );
+
   for (let key in lang.data.allLanguages) {
     languages.push({ name: key, size: lang.data.allLanguages[key] });
+  }
+  for (let key in commitInfo.data) {
     if (GLOBAL_LANGUAGES[key] === undefined) {
-      GLOBAL_LANGUAGES[key] = parseInt(lang.data.allLanguages[key]);
+      GLOBAL_LANGUAGES[key] = parseInt(commitInfo.data[key]);
     } else {
       GLOBAL_LANGUAGES[key] =
-        GLOBAL_LANGUAGES[key] + parseInt(lang.data.allLanguages[key]);
+        GLOBAL_LANGUAGES[key] + parseInt(commitInfo.data[key]);
     }
   }
   return {

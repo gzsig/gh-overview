@@ -19,6 +19,30 @@ const getContributions = (repo) => {
   });
 };
 
+const getUserRepoCommits = (repo, username) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const axiosRes = instance.get(
+        `/repos/${repo}/commits?author=${username}&per_page=10`
+      );
+      resolve(axiosRes);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const getUserRepoCommit = (repo, sha) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const axiosRes = instance.get(`/repos/${repo}/commits/${sha}`);
+      resolve(axiosRes);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const getRepos = (username, page) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -59,4 +83,6 @@ module.exports = {
   getRepos,
   getRepoLangs,
   getUserInfo,
+  getUserRepoCommits,
+  getUserRepoCommit,
 };

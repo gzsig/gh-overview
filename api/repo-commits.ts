@@ -42,6 +42,7 @@ export default async (req: NowRequest, res: NowResponse) => {
     "coffee-script",
     "cfm",
     "common-lisp",
+    "css",
     "lisp",
     "dpatch",
     "dart",
@@ -54,7 +55,6 @@ export default async (req: NowRequest, res: NowResponse) => {
     "html+erb",
     "erb",
     "irc",
-    "json",
     "jsp",
     "java",
     "javascript",
@@ -86,10 +86,11 @@ export default async (req: NowRequest, res: NowResponse) => {
     "rst",
     "xbm",
     "xpm",
-    "yml",
   ];
   let languageUpdates = {};
   const { user, repo } = req.query;
+  // let user = "gzsig";
+  // let repo = "gzsig/gh-overview";
   let shas = [];
   try {
     const commits = await getUserRepoCommits(repo, user);
@@ -102,7 +103,6 @@ export default async (req: NowRequest, res: NowResponse) => {
     commitsInfo.forEach((commit) => {
       for (let i = 0; i < commit.files.length; i++) {
         console.log(repo);
-
         let file = commit.files[i];
         console.log(file.filename);
         console.log(file.additions);
